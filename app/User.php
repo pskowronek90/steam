@@ -35,8 +35,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function getUserById(int $id): User
+    public function getByUserIdOrSteamId(int $id): User
     {
-        return $this->where('id' , $id)->first();
+        return $this
+            ->where('id' , $id)
+            ->orWhere('steam_id', $id)
+            ->first();
     }
 }

@@ -11,13 +11,8 @@ class DataController extends Controller
 
     public function show(User $user)
     {
-        $user = $user->getUserById(auth()->id());
+        $user = $user->getByUserId(auth()->id());
 
         return view('account')->with(compact('user'));
-    }
-
-    public function getUserJsonById(User $user, $id)
-    {
-        return response()->json($user->getUserById($id), 200);
     }
 }
