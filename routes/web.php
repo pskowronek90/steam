@@ -14,8 +14,6 @@
 Route::get('/', 'DataController@index')->name('data.index');
 Route::get('show', 'DataController@show')->name('data.show');
 
-Route::get('/user/{id}', 'ApiController@getUserByIdOrSteamId');
-
 Route::get('auth/steam', 'AuthController@redirectToSteam')->name('auth.steam');
 Route::get('auth/steam/handle', 'AuthController@handle')->name('auth.steam.handle');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
