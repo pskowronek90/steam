@@ -3,5 +3,5 @@
 </html>
 <body>
     @include('_elements.navbar')
-    @include('_elements.content')
+    @include('_elements.account-data')
 </body>
