@@ -1,9 +1,10 @@
-<?php namespace App;
+<?php /** @noinspection PhpUndefinedMethodInspection */
+
+namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Collection;
 
 /** @property int id */
 /** @property string username */
