@@ -11,7 +11,7 @@ class DataController extends Controller
 
     public function show(User $user)
     {
-        $user = $user->getByUserId(auth()->id());
+        $user = $user->getByUserIdOrSteamId(auth()->id());
 
         return view('account')->with(compact('user'));
     }
