@@ -2,49 +2,27 @@
 
 use Invisnik\LaravelSteamAuth\SteamAuth;
 use App\User;
-use Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * The SteamAuth instance.
-     *
-     * @var SteamAuth
-     */
+    const DEFAULT_POINTS = 0;
+
+    /** @var SteamAuth */
     protected $steam;
 
-    /**
-     * The redirect URL.
-     *
-     * @var string
-     */
-    protected $redirectURL = '/';
-
-    /**
-     * AuthController constructor.
-     *
-     * @param SteamAuth $steam
-     */
+    /** @param SteamAuth $steam */
     public function __construct(SteamAuth $steam)
     {
         $this->steam = $steam;
     }
 
-    /**
-     * Redirect the user to the authentication page
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+    /** @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector */
     public function redirectToSteam()
     {
         return $this->steam->redirect();
     }
 
-    /**
-     * Get user info and log in
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+    /** @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector */
     public function handle()
     {
         if ($this->steam->validate()) {
@@ -52,18 +30,16 @@ class AuthController extends Controller
 
             if (!is_null($info)) {
                 $user = $this->findOrNewUser($info);
+                auth()->login($user, true);
 
-                Auth::login($user, true);
-
-                return redirect($this->redirectURL); // redirect to site
+                return redirect()->route('data.index');
             }
         }
+
         return $this->redirectToSteam();
     }
 
     /**
-     * Getting user by info or created if not exists
-     *
      * @param $info
      * @return User
      */
